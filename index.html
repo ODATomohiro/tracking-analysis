@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tracking Analysis for Physics</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="assets/Pl.png" alt="Logo" class="logo"/>
+    <h1>Tracking Analysis for Physics</h1>
+  </header>
+  <main>
+    <input type="file" id="video-upload" accept="video/*" />
+    <div class="controls">
+      <label for="object-select">物体番号:</label>
+      <input type="number" id="object-select" min="1" value="1" />
+      <button id="set-origin">原点を設定</button>
+      <button id="set-scale">スケールを設定</button>
+      <button id="export-csv">CSV出力</button>
+    </div>
+    <div class="frame-controls">
+      <button id="back10">←10</button>
+      <button id="back1">←1</button>
+      <input type="range" id="frame-slider" min="0" max="1000" value="0" />
+      <button id="forward1">1→</button>
+      <button id="forward10">10→</button>
+    </div>
+    <div class="video-container">
+      <video id="video" width="640" height="360" controls></video>
+      <canvas id="canvas" width="640" height="360"></canvas>
+    </div>
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>
