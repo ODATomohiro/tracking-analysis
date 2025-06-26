@@ -84,7 +84,7 @@ document.getElementById('export-csv').onclick = () => {
 
   let csv = header.join(',') + '\n';
   Object.keys(frames).sort((a,b)=>a-b).forEach(frame => {
-    let row = [frame, frames[frame].time.toFixed(2)];
+    let row = [frame, (frame / window.fps).toFixed(5)];
     ids.forEach(id => {
       row.push(frames[frame][`id${id}_x`] || '', frames[frame][`id${id}_y`] || '');
     });
@@ -127,4 +127,33 @@ video.addEventListener('play', () => {
     requestAnimationFrame(step);
   }
   step();
+});
+
+
+video.addEventListener('loadedmetadata', () => {
+  let estimatedFPS = 30;
+  try {
+    const stream = video.captureStream();
+    const track = stream.getVideoTracks()[0];
+    const settings = track.getSettings();
+    if (settings && settings.frameRate) {
+      estimatedFPS = Math.round(settings.frameRate);
+    }
+  } catch (e) {
+    console.warn("FPSの自動取得に失敗:", e);
+  }
+
+  setTimeout(() => {
+    const answer = confirm(`この動画のFPSは ${estimatedFPS} fps ですか？`);
+    if (!window.fps) window.fps = 30;
+    if (answer) {
+      window.fps = estimatedFPS;
+    } else {
+      const userFPS = parseFloat(prompt("正しいFPSを入力してください：", estimatedFPS));
+      if (!isNaN(userFPS)) {
+        window.fps = userFPS;
+      }
+    }
+    console.log("設定されたFPS:", window.fps);
+  }, 300);
 });
