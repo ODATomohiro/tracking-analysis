@@ -82,13 +82,13 @@ document.getElementById('export-csv').onclick = () => {
     header.push(`id${id}_x`, `id${id}_y`);
   });
 
-  let csv = header.join(',') + '\n';
+  let csv = header.join(',') + '¥n';
   Object.keys(frames).sort((a,b)=>a-b).forEach(frame => {
     let row = [frame, frames[frame].time.toFixed(2)];
     ids.forEach(id => {
       row.push(frames[frame][`id${id}_x`] || '', frames[frame][`id${id}_y`] || '');
     });
-    csv += row.join(',') + '\n';
+    csv += row.join(',') + '¥n';
   });
 
   const blob = new Blob([csv], { type: 'text/csv' });
