@@ -112,6 +112,19 @@ document.getElementById('frame-slider').addEventListener('input', (e) => {
 });
 
 video.addEventListener('loadedmetadata', () => {
+    let fps = 30; // デフォルトfps
+    try {
+        const duration = video.duration;
+        const frames = Math.floor(video.getVideoPlaybackQuality?.().totalVideoFrames || duration * 30);
+        fps = Math.round(frames / duration);
+    } catch (e) {}
+    const confirmFps = confirm(`この動画のfpsは ${fps} ですか？`);
+    if (!confirmFps) {
+        const input = prompt("正しいfpsを入力してください", fps);
+        fps = parseFloat(input);
+    }
+    videoFps = fps;
+
   document.getElementById('frame-slider').max = 1000;
 });
 
