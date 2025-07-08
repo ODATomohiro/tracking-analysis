@@ -84,7 +84,7 @@ document.getElementById('export-csv').onclick = () => {
 
   let csv = header.join(',') + '\n';
   Object.keys(frames).sort((a,b)=>a-b).forEach(frame => {
-    let row = [frame, frames[frame].time.toFixed(2)];
+    let row = [frame, frames[frame].time.toFixed(8)];
     ids.forEach(id => {
       row.push(frames[frame][`id${id}_x`] || '', frames[frame][`id${id}_y`] || '');
     });
