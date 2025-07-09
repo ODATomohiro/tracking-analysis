@@ -1,3 +1,4 @@
+let videoFps = 30;
 
 let video = document.getElementById('video');
 let canvas = document.getElementById('canvas');
@@ -44,7 +45,7 @@ canvas.addEventListener('click', (e) => {
     }
   } else if (e.shiftKey) {
     const time = video.currentTime;
-    const frame = Math.floor(time * 30);
+    const frame = Math.floor(time * videoFps);
     const id = document.getElementById('object-select').value || '1';
     trackingData.push({ id, frame, time, x, y });
 
@@ -59,7 +60,7 @@ canvas.addEventListener('click', (e) => {
     ctx.stroke();
 
     video.pause();
-    video.currentTime = time + 1 / 30;
+    video.currentTime = time + 1 / videoFps;
   }
 });
 
