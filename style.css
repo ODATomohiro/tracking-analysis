@@ -8,11 +8,12 @@ header {
   background: #003366;
   color: white;
   padding: 10px;
-  text-align: center;
+  text-align: left;
+  display: flex;
+  align-items: center;
 }
 .logo {
   height: 50px;
-  vertical-align: middle;
   margin-right: 10px;
 }
 .controls, .frame-controls {
@@ -25,8 +26,15 @@ button {
 }
 .video-container {
   position: relative;
-  width: 640px;
+  width: 100%;
+  max-width: 100%;
   margin: auto;
+  max-height: 80vh;
+}
+video, canvas {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
 }
 canvas {
   position: absolute;
