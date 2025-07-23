@@ -102,8 +102,15 @@ document.getElementById('export-csv').onclick = () => {
 
 ['back10','back5','back1','forward1','forward5','forward10'].forEach(id => {
   document.getElementById(id).onclick = () => {
-    const delta = { back10:-10, back1:-1, forward1:1, forward10:10 }[id];
-    video.currentTime = Math.max(0, video.currentTime + delta / 30);
+    const delta = {
+      back10: -10,
+      back5: -5,
+      back1: -1,
+      forward1: 1,
+      forward5: 5,
+      forward10: 10
+    }[id];
+    video.currentTime = Math.max(0, video.currentTime + delta / videoFps);
   };
 });
 
@@ -114,20 +121,22 @@ document.getElementById('frame-slider').addEventListener('input', (e) => {
 });
 
 video.addEventListener('loadedmetadata', () => {
-    let fps = 30; // デフォルトfps
-    try {
-        const duration = video.duration;
-        const frames = Math.floor(video.getVideoPlaybackQuality?.().totalVideoFrames || duration * 30);
-        fps = Math.round(frames / duration);
-    } catch (e) {}
-    const confirmFps = confirm(`この動画のfpsは ${fps} ですか？`);
-    if (!confirmFps) {
-        const input = prompt("正しいfpsを入力してください", fps);
-        fps = parseFloat(input);
-    }
-    videoFps = fps;
+  let fps = 30;
+  try {
+    const duration = video.duration;
+    const frames = Math.floor(video.getVideoPlaybackQuality?.().totalVideoFrames || duration * 30);
+    fps = Math.round(frames / duration);
+  } catch (e) {}
+  const confirmFps = confirm(`この動画のfpsは ${fps} ですか？`);
+  if (!confirmFps) {
+    const input = prompt("正しいfpsを入力してください", fps);
+    fps = parseFloat(input);
+  }
+  videoFps = fps;
 
   document.getElementById('frame-slider').max = 1000;
+
+  adjustCanvasSize();
 });
 
 video.addEventListener('timeupdate', () => {
@@ -144,7 +153,6 @@ video.addEventListener('play', () => {
   step();
 });
 
-
 function adjustCanvasSize() {
   const video = document.getElementById('video');
   const canvas = document.getElementById('canvas');
@@ -153,4 +161,3 @@ function adjustCanvasSize() {
 }
 
 window.addEventListener('resize', adjustCanvasSize);
-video.addEventListener('loadedmetadata', adjustCanvasSize);
