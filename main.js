@@ -43,7 +43,7 @@ canvas.addEventListener('click', (e) => {
       scaleEnd = null;
       trackingMode = 'none';
     }
-  } else if (e.shiftKey) {
+  } else if (e.shiftKey || e.ctrlKey || e.metaKey) {
     const time = video.currentTime;
     const frame = Math.floor(time * videoFps);
     const id = document.getElementById('object-select').value || '1';
@@ -60,7 +60,8 @@ canvas.addEventListener('click', (e) => {
     ctx.stroke();
 
     video.pause();
-    video.currentTime = time + 1 / videoFps;
+    const advance = (e.ctrlKey || e.metaKey) ? 5 : 1;
+    video.currentTime = time + advance / videoFps;
   }
 });
 
@@ -99,7 +100,7 @@ document.getElementById('export-csv').onclick = () => {
   link.click();
 };
 
-['back10','back1','forward1','forward10'].forEach(id => {
+['back10','back5','back1','forward1','forward5','forward10'].forEach(id => {
   document.getElementById(id).onclick = () => {
     const delta = { back10:-10, back1:-1, forward1:1, forward10:10 }[id];
     video.currentTime = Math.max(0, video.currentTime + delta / 30);
@@ -142,3 +143,14 @@ video.addEventListener('play', () => {
   }
   step();
 });
+
+
+function adjustCanvasSize() {
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  canvas.width = video.clientWidth;
+  canvas.height = video.clientHeight;
+}
+
+window.addEventListener('resize', adjustCanvasSize);
+video.addEventListener('loadedmetadata', adjustCanvasSize);
