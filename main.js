@@ -134,6 +134,12 @@ video.addEventListener('loadedmetadata', () => {
   }
   videoFps = fps;
 
+  const fpsDisplay = document.getElementById('fps-display');
+  if (fpsDisplay) {
+    fpsDisplay.textContent = `fps: ${videoFps}`;
+  }
+
+
   document.getElementById('frame-slider').max = 1000;
 
   adjustCanvasSize();
