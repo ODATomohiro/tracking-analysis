@@ -22,15 +22,19 @@
       <button id="set-scale">スケールを設定</button>
       <button id="export-csv">CSV出力</button>
     </div>
+    
     <div class="frame-controls">
       <button id="back10">←10</button>
+      <button id="back8">←8</button>
       <button id="back5">←5</button>
       <button id="back1">←1</button>
       <input type="range" id="frame-slider" min="0" max="1000" value="0" />
       <button id="forward1">1→</button>
       <button id="forward5">5→</button>
+      <button id="forward8">8→</button>
       <button id="forward10">10→</button>
     </div>
+
     <div class="video-container">
       <video id="video" controls></video>
       <canvas id="canvas"></canvas>
@@ -42,7 +46,7 @@
       ③「原点設定」と「スケール設定」を画面内で行う<br>
       ④トラッキングを行い、CSVとして出力<br>
       　→ トラッキングして１フレーム進む：Shift＋クリック<br>
-      　→ トラッキングして５フレーム進む：ctrl（またはcmd）＋クリック
+      　→ トラッキングして５フレーム進む：ctrl（またはcmd）＋クリック<br>　→ トラッキングして８フレーム進む：alt（またはopt）＋クリック
     </div>
   </main>
   <script src="main.js"></script>
