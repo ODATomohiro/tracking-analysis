@@ -60,7 +60,10 @@ canvas.addEventListener('click', (e) => {
     ctx.stroke();
 
     video.pause();
-    const advance = (e.ctrlKey || e.metaKey) ? 5 : 1;
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    const advance = isMac
+      ? (e.altKey ? 8 : (e.metaKey ? 5 : 1))
+      : (e.altKey ? 8 : (e.ctrlKey ? 5 : 1));
     video.currentTime = time + advance / videoFps;
   }
 });
@@ -100,14 +103,16 @@ document.getElementById('export-csv').onclick = () => {
   link.click();
 };
 
-['back10','back5','back1','forward1','forward5','forward10'].forEach(id => {
+['back10','back8','back5','back1','forward1','forward5','forward8','forward10'].forEach(id => {
   document.getElementById(id).onclick = () => {
     const delta = {
       back10: -10,
+      back8: -8,
       back5: -5,
       back1: -1,
       forward1: 1,
       forward5: 5,
+      forward8: 8,
       forward10: 10
     }[id];
     video.currentTime = Math.max(0, video.currentTime + delta / videoFps);
