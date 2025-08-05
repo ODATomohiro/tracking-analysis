@@ -60,10 +60,13 @@ canvas.addEventListener('click', (e) => {
     ctx.stroke();
 
     video.pause();
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-    const advance = isMac
-      ? (e.altKey ? 8 : (e.metaKey ? 5 : 1))
-      : (e.altKey ? 8 : (e.ctrlKey ? 5 : 1));
+
+    let advance = 1;
+    if (e.ctrlKey || e.metaKey) {
+      const customStep = parseInt(document.getElementById('custom-step').value) || 1;
+      advance = customStep;
+    }
+
     video.currentTime = time + advance / videoFps;
   }
 });
@@ -172,3 +175,21 @@ function adjustCanvasSize() {
 }
 
 window.addEventListener('resize', adjustCanvasSize);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const backBtn = document.getElementById('custom-back');
+  const forwardBtn = document.getElementById('custom-forward');
+  const stepInput = document.getElementById('custom-step');
+
+  if (backBtn && forwardBtn && stepInput) {
+    backBtn.onclick = () => {
+      const step = parseInt(stepInput.value) || 1;
+      video.currentTime = Math.max(0, video.currentTime - step / videoFps);
+    };
+    forwardBtn.onclick = () => {
+      const step = parseInt(stepInput.value) || 1;
+      video.currentTime = video.currentTime + step / videoFps;
+    };
+  }
+});
