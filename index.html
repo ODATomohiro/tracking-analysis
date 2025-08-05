@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -21,33 +20,38 @@
       <button id="set-origin">原点を設定</button>
       <button id="set-scale">スケールを設定</button>
       <button id="export-csv">CSV出力</button>
+      <label for="custom-step">進むフレーム数 N を指定したい場合 →</label>
+      <input type="number" id="custom-step" min="1" value="8" style="width: 60px;"/>
     </div>
-    
+
     <div class="frame-controls">
-      <button id="back10">←10</button>
-      <button id="back8">←8</button>
-      <button id="back5">←5</button>
-      <button id="back1">←1</button>
-      <input type="range" id="frame-slider" min="0" max="1000" value="0" />
-      <button id="forward1">1→</button>
+  <button id="custom-back">←N</button>
+  <button id="back10">←10</button>
+  <button id="back8">←8</button>
+  <button id="back5">←5</button>
+  <button id="back1">←1</button>
+  <input type="range" id="frame-slider" min="0" max="1000" value="0" />
+<button id="forward1">1→</button>
       <button id="forward5">5→</button>
       <button id="forward8">8→</button>
       <button id="forward10">10→</button>
-    </div>
+  <button id="custom-forward">N→</button></div>
 
     <div class="video-container">
       <video id="video" controls></video>
       <canvas id="canvas"></canvas>
     </div>
+    
     <div class="instructions" style="margin: 20px 10px; font-size: 14px; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px;">
       <strong>操作説明:</strong><br>
-      ①「ファイルを選択」で動画を読み込み、動画ファイルのfpsを入力する<br>
+      ①「ファイルを選択」で動画を読み込み、動画ファイルの fps を入力する<br>
       ②「物体番号」の指定により複数物体の追跡が可能<br>
       ③「原点設定」と「スケール設定」を画面内で行う<br>
       ④トラッキングを行い、CSVとして出力<br>
-      　→ トラッキングして１フレーム進む：Shift＋クリック<br>
-      　→ トラッキングして５フレーム進む：ctrl（またはcmd）＋クリック<br>　→ トラッキングして８フレーム進む：alt（またはopt）＋クリック
+      　→ トラッキングして1フレーム進む：Shift＋クリック<br>
+      　→ トラッキングして指定した値のフレーム進む：Ctrl（またはCmd）＋クリック
     </div>
+    
   </main>
   <script src="main.js"></script>
   <div style="position:absolute; top:10px; right:10px; font-size:0.9em; color:#ccc;">Design: ODA Tomohiro</div>
