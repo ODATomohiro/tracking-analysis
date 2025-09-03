@@ -41,3 +41,26 @@ canvas {
   top: 0;
   left: 0;
 }
+
+#video {
+  width: 100%
+  height: auto
+  z-index: 1
+  pointer-events: none
+  display: block
+  transform: none !important
+}
+
+#canvas {
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 2
+  pointer-events: auto
+}
+
+html, body {
+  touch-action: none
+}
